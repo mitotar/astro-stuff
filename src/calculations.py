@@ -22,7 +22,8 @@ def calc_grav_acceleration(mass, radius, earth_units=False):
 
 def calc_escape_velocity(mass, radius, earth_units=False):
     """
-    Calculates the escape velocity (m/s) of a circular body with the given mass (kg) and radius (m).
+    Calculates the magnitude of the escape velocity (m/s) of a circular body with the given mass and radius.
+    Assumes mass and radius are in meters and kilograms, respectively, unless earth_units=True, in which case they are treated as Earth masses and Earth radii, respectively.
     """
 
     if mass == 0 or radius == 0:
