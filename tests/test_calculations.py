@@ -50,7 +50,7 @@ class TestGetGravAcceleration(object):
         assert e.match(
             "Mass and radius values must be positive."), "Expected ValueError."
 
-    def test_on_non_valid_values(self):
+    def test_on_valid_values(self):
         """
         Test for proper value input.
         """
@@ -71,6 +71,28 @@ class TestGetGravAcceleration(object):
         # Sun values
         sun_theory = 274
         sun_calc = calc_grav_acceleration(1.99e30, 6.957e8)
+        assert sun_calc == pytest.approx(
+            sun_theory, 0.2), "Expected {0}, but got {1}.".format(sun_theory, sun_calc)
+
+    def test_on_valid_values_earth_units(self):
+        # Earth values
+        earth_theory = 9.81
+        earth_calc = calc_grav_acceleration(
+            1, 1, earth_units=True)
+        assert earth_calc == pytest.approx(
+            earth_calc, 0.02), "Expected {0}, but got {1}.".format(earth_theory, earth_calc)
+
+        # Jupiter values
+        jupiter_theory = 23.1
+        jupiter_calc = calc_grav_acceleration(
+            const.M_jup.value / const.M_earth.value, const.R_jup.value / const.R_earth.value, earth_units=True)
+        assert jupiter_calc == pytest.approx(
+            jupiter_theory, 0.2), "Expected {0}, but got {1}.".format(jupiter_theory, jupiter_calc)
+
+        # Sun values
+        sun_theory = 274
+        sun_calc = calc_grav_acceleration(
+            const.M_sun.value / const.M_earth.value, const.R_sun.value / const.R_earth.value, earth_units=True)
         assert sun_calc == pytest.approx(
             sun_theory, 0.2), "Expected {0}, but got {1}.".format(sun_theory, sun_calc)
 
@@ -122,5 +144,26 @@ class TestCalcEscapeVelocity(object):
         # Sun values
         sun_theory = 615e3
         sun_calc = calc_escape_velocity(1.99e30, 6.957e8)
+        assert sun_calc == pytest.approx(
+            sun_theory, 2), "Expected {0}, but got {1}.".format(sun_theory, sun_calc)
+
+    def test_on_valid_values_earth_units(self):
+        # Earth values
+        earth_theory = 11.2e3
+        earth_calc = calc_escape_velocity(1, 1, earth_units=True)
+        assert earth_calc == pytest.approx(
+            earth_theory, 0.2), "Expected {0}, but got {1}.".format(earth_theory, earth_calc)
+
+        # Jupiter values
+        jupiter_theory = 59.5e3
+        jupiter_calc = calc_escape_velocity(
+            const.M_jup.value / const.M_earth.value, const.R_jup.value / const.R_earth.value, earth_units=True)
+        assert jupiter_calc == pytest.approx(
+            jupiter_theory, 0.2), "Expected {0}, but got {1}.".format(jupiter_theory, jupiter_calc)
+
+        # Sun values
+        sun_theory = 615e3
+        sun_calc = calc_escape_velocity(
+            const.M_sun.value / const.M_earth.value, const.R_sun.value / const.R_earth.value, earth_units=True)
         assert sun_calc == pytest.approx(
             sun_theory, 2), "Expected {0}, but got {1}.".format(sun_theory, sun_calc)
