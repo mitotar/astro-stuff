@@ -1,3 +1,3 @@
 # astro-stuff
 
-Various astronomy- and astrophysics-related calculations, for my own interest.
+Various astronomy- and astrophysics-related functions, for my own interest, and to practice unit testing.
