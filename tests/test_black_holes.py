@@ -7,6 +7,9 @@ class TestSchwarzschildRadius(object):
     def test_on_negative_value(self):
         with pytest.raises(ValueError) as e:
             calc = bh.schwarzschild_radius(-1)
+        assert e.match(
+            "Mass value must be non-negative."), "Expected ValueError, but got {0}.".format(calc)
+        with pytest.raises(ValueError) as e:
             calc = bh.schwarzschild_radius(-10e30)
         assert e.match(
             "Mass value must be non-negative."), "Expected ValueError, but got {0}.".format(calc)
