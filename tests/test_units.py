@@ -8,6 +8,9 @@ class TestAUToLY(object):
     def test_on_negative_value(self):
         with pytest.raises(ValueError) as e:
             calc = units.au_to_ly(-2.3e10)
+        assert e.match(
+            "AU value must be non-negative."), "Expected ValueError, but got {0}".format(calc)
+        with pytest.raises(ValueError) as e:
             calc = units.au_to_ly(-1)
         assert e.match(
             "AU value must be non-negative."), "Expected ValueError, but got {0}".format(calc)
@@ -35,6 +38,9 @@ class TestLYToAU(object):
     def test_on_negative_value(self):
         with pytest.raises(ValueError) as e:
             calc = units.ly_to_au(-2.3e10)
+        assert e.match(
+            "Light-year value must be non-negative."), "Expected ValueError, but got {0}".format(calc)
+        with pytest.raises(ValueError) as e:
             calc = units.ly_to_au(-1)
         assert e.match(
             "Light-year value must be non-negative."), "Expected ValueError, but got {0}".format(calc)
@@ -61,6 +67,9 @@ class TestAUToPC(object):
     def test_on_negative_value(self):
         with pytest.raises(ValueError) as e:
             calc = units.au_to_pc(-2.3e10)
+        assert e.match(
+            "AU value must be non-negative."), "Expected ValueError, but got {0}".format(calc)
+        with pytest.raises(ValueError) as e:
             calc = units.au_to_pc(-1)
         assert e.match(
             "AU value must be non-negative."), "Expected ValueError, but got {0}".format(calc)
@@ -87,6 +96,9 @@ class TestLYToPC(object):
     def test_on_negative_value(self):
         with pytest.raises(ValueError) as e:
             calc = units.ly_to_pc(-2.3e10)
+        assert e.match(
+            "Light-year value must be non-negative."), "Expected ValueError, but got {0}".format(calc)
+        with pytest.raises(ValueError) as e:
             calc = units.ly_to_pc(-1)
         assert e.match(
             "Light-year value must be non-negative."), "Expected ValueError, but got {0}".format(calc)
