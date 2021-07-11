@@ -18,3 +18,13 @@ def lorentz_factor(v, c_units=True):
         frac = v / const.c.value
 
     return math.sqrt(1 - frac ** 2)
+
+
+def lorentz_contraction(x, v, c_units=True):
+    """
+    Calculates the Lorentz-contracted value of x moving at speed v.
+    Note: If c_units=False, then 299792458 is used as the speed of light, c, NOT, 3e8.
+    """
+    if x < 0:
+        raise ValueError("Value x must be non-negative.")
+    return x * lorentz_factor(v, c_units=c_units)

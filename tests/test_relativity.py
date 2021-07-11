@@ -140,3 +140,8 @@ class TestLorentzFactor(object):
         calc = rel.lorentz_factor(0, c_units=False)
         assert calc == theory, "Expected {0}, but got {1}.".format(
             theory, calc)
+
+
+class TestLorentzContraction(self):
+    def test_on_negative_x_value(self):
+        pass
