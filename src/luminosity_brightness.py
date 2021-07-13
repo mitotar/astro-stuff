@@ -23,6 +23,10 @@ def get_peak_wavelength(temp):
 
 
 def wavelength_to_color(l):
+    """
+    Outputs the part of the EM spectrum of the input wavelength. Assumed input value is in meters.
+    """
+
     if l <= 0:
         raise ValueError("Wavelength must be non-negative.")
     if l < 1e-12:
