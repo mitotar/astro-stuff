@@ -20,3 +20,34 @@ def get_peak_wavelength(temp):
     if temp <= 0:
         raise ValueError("Temperature must be non-negative.")
     return 2.9 / temp
+
+
+def wavelength_to_color(l):
+    if l <= 0:
+        raise ValueError("Wavelength must be non-negative.")
+    if l < 1e-12:
+        print("gamma rays")
+    elif l < 1e-8:
+        print("X-rays")
+    elif l < 1e-7:
+        print("ultraviolet")
+    elif l < 7.5e-7:
+        print("visible ", end="", flush=True)
+        if l < 4.5e-7:
+            print("(violet)")
+        elif l < 4.95e-7:
+            print("(blue)")
+        elif l < 5.7e-7:
+            print("(green)")
+        elif l < 5.9e-7:
+            print("(yellow)")
+        elif l < 6.2e-7:
+            print("(orange)")
+        else:
+            print("(red)")
+    elif l < 1e-3:
+        print("infrared")
+    elif l < 1e-1:
+        print("microwave")
+    else:
+        print("radio")

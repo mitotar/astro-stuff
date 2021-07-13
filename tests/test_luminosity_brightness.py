@@ -85,3 +85,15 @@ class TestGetPeakWavelength(object):
         calc = lb.get_peak_wavelength(1e15)
         assert calc == pytest.approx(
             theory), "Expected {0}, but got {1}.".format(theory, calc)
+
+
+class TestWavelengthToColor(object):
+    def test_on_invalid_value(self):
+        with pytest.raises(ValueError) as e:
+            lb.wavelength_to_color(-200)
+        assert e.match(
+            "Wavelength must be non-negative."), "Expected ValueError."
+        with pytest.raises(ValueError) as e:
+            lb.wavelength_to_color(-1e-13)
+        assert e.match(
+            "Wavelength must be non-negative."), "Expected ValueError."
