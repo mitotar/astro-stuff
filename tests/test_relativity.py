@@ -142,6 +142,32 @@ class TestLorentzFactor(object):
             theory, calc)
 
 
-class TestLorentzContraction(self):
+class TestLorentzContraction(object):
+    # only test on values for x since the other two parameters are checked in unit tests for lorentz_factor()
     def test_on_negative_x_value(self):
-        pass
+        with pytest.raises(ValueError) as e:
+            calc = rel.lorentz_contraction(-800, 0.5, c_units=True)
+        assert e.match(
+            "Value x must be non-negative."), "Expected ValueError, but got {0}.".format(calc)
+        with pytest.raises(ValueError) as e:
+            calc = rel.lorentz_contraction(-1e20, 0.5, c_units=True)
+        assert e.match(
+            "Value x must be non-negative."), "Expected ValueError, but got {0}.".format(calc)
+
+    def test_on_positive_x_value(self):
+        theory = 0
+        calc = rel.lorentz_contraction(0, 0.5, c_units=True)
+        assert calc == pytest.approx(
+            theory, 0.02), "Expected {0}, but got {1}.".format(theory, calc)
+        theory = 8.66
+        calc = rel.lorentz_contraction(10, 0.5, c_units=True)
+        assert calc == pytest.approx(
+            theory, 0.02), "Expected {0}, but got {1}.".format(theory, calc)
+        theory = 866
+        calc = rel.lorentz_contraction(1000, 0.5, c_units=True)
+        assert calc == pytest.approx(
+            theory, 0.02), "Expected {0}, but got {1}.".format(theory, calc)
+        theory = 0.4472
+        calc = rel.lorentz_contraction(100, 0.99999, c_units=True)
+        assert calc == pytest.approx(
+            theory, 0.02), "Expected {0}, but got {1}.".format(theory, calc)
