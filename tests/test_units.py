@@ -119,3 +119,48 @@ class TestLYToPC(object):
         calc = units.ly_to_pc(3.26)
         assert calc == pytest.approx(theory, 0.02), "Expected {0}, but got {1}".format(
             theory, calc)
+
+
+class TestKelvinToCelsius(object):
+    def test_on_negative_value(self):
+        with pytest.raises(ValueError) as e:
+            calc = units.kelvin_to_celsius(-1)
+        assert e.match(
+            "Temperature must be non-negative."), "Expected ValueError, but got {0}.".format(calc)
+
+    def test_on_valid_value(self):
+        theory = -273.15
+        calc = units.kelvin_to_celsius(0)
+        assert calc == pytest.approx(
+            theory), "Expected {0}, but got {1}.".format(theory, calc)
+        theory = 0
+        calc = units.kelvin_to_celsius(273.15)
+        assert calc == pytest.approx(
+            theory), "Expected {0}, but got {1}.".format(theory, calc)
+        theory = 6000
+        calc = units.kelvin_to_celsius(6273.15)
+        assert calc == pytest.approx(
+            theory), "Expected {0}, but got {1}.".format(theory, calc)
+
+
+class TestCelsiusToKelvin(object):
+    def test_on_invalid_value(self):
+        with pytest.raises(ValueError) as e:
+            calc = units.celsius_to_kelvin(-273.2)
+        assert e.match(
+            # including () in the match string caused issues so I just check for the beginning of the string
+            "Temperature must be greater than absolute zero"), "Expected ValueError, but got {0}.".format(calc)
+
+    def test_on_valid_value(self):
+        theory = 0
+        calc = units.celsius_to_kelvin(-273.15)
+        assert calc == pytest.approx(
+            theory), "Expected {0}, but got {1}.".format(theory, calc)
+        theory = 273.15
+        calc = units.celsius_to_kelvin(0)
+        assert calc == pytest.approx(
+            theory), "Expected {0}, but got {1}.".format(theory, calc)
+        theory = 6273.15
+        calc = units.celsius_to_kelvin(6000)
+        assert calc == pytest.approx(
+            theory), "Expected {0}, but got {1}.".format(theory, calc)
