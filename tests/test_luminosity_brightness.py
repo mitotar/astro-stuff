@@ -4,6 +4,12 @@ import src.luminosity_brightness as lb
 
 
 class TestStefanBoltzmann(object):
+    def test_on_zero_temp(self):
+        with pytest.raises(ValueError) as e:
+            calc = lb.stefan_boltzmann(1000, 0)
+        assert e.match(
+            "Temperature must be greater than 0."), "Expected ValueError, but got {0}.".format(calc)
+
     def test_negative_area_negative_temp(self):
         with pytest.raises(ValueError) as e:
             calc = lb.stefan_boltzmann(-10, -2000)
