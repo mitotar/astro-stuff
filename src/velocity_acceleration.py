@@ -28,7 +28,7 @@ def calc_escape_velocity(mass, radius, earth_units=False):
 
     if mass == 0 or radius == 0:
         raise ValueError("Mass and radius values must be non-zero.")
-    if mass < 0 or radius < 1:
+    if mass < 0 or radius < 0:
         raise ValueError("Mass and radius values must be positive.")
 
     if earth_units:
@@ -36,3 +36,11 @@ def calc_escape_velocity(mass, radius, earth_units=False):
         radius = radius * const.R_earth.value
 
     return math.sqrt(2 * const.G.value * mass / radius)
+
+
+def calc_orbital_velocity(mass, radius, earth_units=False):
+    """
+    Calculates the orbital speed (m/s) of an object in a circular orbit around a body with the given mass (kg) at a given distance (m) from the center.
+    """
+
+    return calc_escape_velocity(mass, radius, earth_units=earth_units) / math.sqrt(2)
