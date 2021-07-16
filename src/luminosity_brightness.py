@@ -1,4 +1,5 @@
 import astropy.constants as const
+import math
 
 
 def stefan_boltzmann(area, temp):
@@ -12,14 +13,25 @@ def stefan_boltzmann(area, temp):
     return const.sigma_sb.value * area * temp ** 4
 
 
+def brightness(lum, dist):
+    """
+    Calculate the brightness of an object with the given luminosity (W) at the given distance away (m).
+    """
+
+    if lum <= 0 or dist <= 0:
+        raise ValueError(
+            "Luminosity and distance values must be greater than 0.")
+    return lum / (4 * math.pi * dist ** 2)
+
+
 def get_peak_wavelength(temp):
     """
-    Give approximate peak wavelength (mm) of a blackbody object with the given temperature (K).
+    Give approximate peak wavelength (m) of a blackbody object with the given temperature (K).
     """
 
     if temp <= 0:
         raise ValueError("Temperature must be non-negative.")
-    return 2.9 / temp
+    return 2.9e-3 / temp
 
 
 def wavelength_to_color(l):
